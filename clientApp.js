@@ -5,7 +5,7 @@ const app = express()
 // Serve static files from specified directory
 app.use(express.static(__dirname))
 
-const server = app.listen(9999, () => {
+const server = app.listen(5001, () => {
     const host = server.address().address
     const port = server.address().port
 
