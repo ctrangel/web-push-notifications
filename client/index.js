@@ -16,7 +16,7 @@ const client = (() => {
     }
    
     const registerServiceWorker = () => {
-        if (!('serviceworker' in navigator)) {
+        if (!('serviceWorker') in navigator) {
             return Promise.reject("service worker is not available");
         }
         return  navigator.serviceWorker.register('../service-worker.js')
@@ -38,9 +38,8 @@ const client = (() => {
 
 
     checkNotificationSupport()
-      .then(registerServiceWorker())
-      .then(requestNotificationPermissions())
-      
+      .then(registerServiceWorker)
+      .then(requestNotificationPermissions)
       .catch((err) => console.error(err));
 
 
