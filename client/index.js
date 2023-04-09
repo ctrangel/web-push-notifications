@@ -4,6 +4,33 @@ const client = (() => {
 
     const showNotificationButton = () => {
         notificationButton.style.display = "block";
+        notificationButton.addEventListener('click', showNotification);
+    }
+
+    const showNotification = () => {
+        // console.log("button clicked");
+        const simpleTextNotifications = reg => reg.showNotification("first notification");
+
+        const customizedNotifications = reg => {
+            const options = {
+                body: "Spring Semester is done",
+                icon: "/imgs/notification_icon.png",
+            
+             actions:[
+                {action: "search", title: "Search PPU"},
+                {action: "close", title: "Nevermind"},
+            ],
+            data: {
+                notificationTime: Date.now(),
+                githubuser: 'ctrangel'
+            }
+            // options.actions = actions;
+        }
+            reg.showNotification("Second Notifications", options);
+        }
+        navigator.serviceWorker.getRegistration()
+        .then(registration => customizedNotifications(registration));
+
     }
 
     const checkNotificationSupport = () => {
@@ -19,7 +46,7 @@ const client = (() => {
         if (!('serviceWorker') in navigator) {
             return Promise.reject("service worker is not available");
         }
-        return  navigator.serviceWorker.register('../service-worker.js')
+        return  navigator.serviceWorker.register('service-worker.js')
         .then(regObj => {
             console.log('service worker is registered successfully');
             serviceWorkerRegObj = regObj;
